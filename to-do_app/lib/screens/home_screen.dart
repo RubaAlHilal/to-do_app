@@ -29,11 +29,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var dDay = DateTime.now().day;
+    var dmonth = DateTime.now().month;
+    var dhour = DateTime.now().hour;
+
     return Scaffold(
-      backgroundColor: Color(0xffd9edfd),
+      backgroundColor: const Color(0xff278e8d),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          "To-do App",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         leading: Row(
           children: [
             const SizedBox(
@@ -46,19 +57,57 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        // actions: [
-        //   AddButton(
-        //     controller1: titleController,
-        //     controller2: descriptionController,
-        //   ),
-        //   const SizedBox(
-        //     width: 15,
-        //   ),
-        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                dhour < 12
+                    ? const Text(
+                        "Good Morning 🌅",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      )
+                    : const Text(
+                        "Good Evening 🌃",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  "Today, ${dDay}/${dmonth}",
+                  style: const TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
@@ -100,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         _HomeScreenState>()!
                                     .setState(() {});
                               },
+                              todo: list[index].complete,
                             ),
                           );
                         }),

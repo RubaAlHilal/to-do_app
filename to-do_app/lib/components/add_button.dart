@@ -93,7 +93,7 @@ class AddButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 255, 239, 146),
             borderRadius: BorderRadius.circular(25)),
-        height: 120,
+        height: 65,
         width: 360,
         child: const Text(
           "add new task",

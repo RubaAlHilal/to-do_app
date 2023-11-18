@@ -1,15 +1,19 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatefulWidget {
-  const CardWidget({
+  CardWidget({
     super.key,
     required this.textEntry1,
     required this.textEntry2,
     required this.deleteAction,
+    required this.todo,
   });
 
   final String textEntry1, textEntry2;
   final Function() deleteAction;
+  bool? todo;
 
   @override
   State<CardWidget> createState() => _CardWidgetState();
@@ -23,22 +27,21 @@ class _CardWidgetState extends State<CardWidget> {
     return SizedBox(
       height: 120,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        color: Color(0xffb1f3de),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
           child: Row(
             children: [
               Checkbox(
                   checkColor: Colors.white,
-                  activeColor: Colors.blue,
+                  activeColor: Colors.redAccent,
                   // list[index].complete,
-                  value: isCheked,
+                  value: widget.todo,
                   onChanged: (val) {
-                    // add edit method  on complete value
-                    isCheked = val!;
-                    // list[index].complete = val;
-
+                    widget.todo = val!;
                     setState(() {});
                   }),
               Column(
@@ -60,7 +63,7 @@ class _CardWidgetState extends State<CardWidget> {
               const Spacer(),
               IconButton(
                 onPressed: widget.deleteAction,
-                icon: const Icon(Icons.delete_outline),
+                icon: const Icon(Icons.close_rounded),
                 color: Colors.red,
               ),
             ],
