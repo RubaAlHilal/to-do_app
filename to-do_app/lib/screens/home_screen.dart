@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:to_do_with_database/components/card_widget.dart';
+import 'package:to_do_with_database/layout.dart';
 import 'package:to_do_with_database/model/to_do_model.dart';
 import 'package:to_do_with_database/services/supabase_methods.dart';
 
@@ -29,27 +30,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var dDay = DateTime.now().day;
-    var dmonth = DateTime.now().month;
+    var dateDay = DateTime.now().day;
+    var dateMonth = DateTime.now().month;
     var dhour = DateTime.now().hour;
 
     return Scaffold(
-      backgroundColor: const Color(0xff278e8d),
+      backgroundColor: const Color.fromARGB(255, 47, 169, 167),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "To-do App",
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style: titleFont,
         ),
         leading: Row(
           children: [
-            const SizedBox(
-              width: 18,
-            ),
+            width18,
             RefreshButton(
               refresh: () {
                 setState(() {});
@@ -61,53 +58,28 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 10,
-            ),
+            height10,
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
+                width20,
                 dhour < 12
-                    ? const Text(
-                        "Good Morning 🌅",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )
-                    : const Text(
-                        "Good Evening 🌃",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    ? const Text("Good Morning 🌅", style: headerFont)
+                    : const Text("Good Evening 🌃", style: headerFont),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            height10,
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
+                width20,
                 Text(
-                  "Today, ${dDay}/${dmonth}",
-                  style: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                  "Today, ${dateDay}/${dateMonth}",
+                  style: headerFont,
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            height10,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
@@ -161,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Center(child: Text(snapshot.hasError.toString()));
                     }
                     return const Center(
-                      child: Text("no tasks added add your first task now!"),
+                      child: Text(
+                        "no tasks added add your first task now!",
+                        style: headerFont,
+                      ),
                     );
                   }
                 }),

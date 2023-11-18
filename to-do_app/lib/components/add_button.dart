@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_with_database/layout.dart';
 import 'package:to_do_with_database/services/supabase_methods.dart';
 
 class AddButton extends StatelessWidget {
@@ -32,11 +33,14 @@ class AddButton extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextField(
+                          autofocus: true,
+                          maxLength: 20,
                           controller: controller1,
                           decoration:
                               const InputDecoration(label: Text("title")),
                         ),
                         TextField(
+                          maxLength: 20,
                           controller: controller2,
                           decoration:
                               const InputDecoration(label: Text("description")),
@@ -60,6 +64,13 @@ class AddButton extends StatelessWidget {
                                 Navigator.pop(context);
                                 controller1.text = "";
                                 controller2.text = "";
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        elevation: 50,
+                                        backgroundColor: Color(0xffffd388),
+                                        content: Text(
+                                            "Task added please refresh the page",
+                                            style: alertFont)));
                               } else {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
@@ -67,9 +78,7 @@ class AddButton extends StatelessWidget {
                                         backgroundColor: Color(0xffffd388),
                                         content: Text(
                                           "Please insert all fields",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18),
+                                          style: alertFont,
                                         )));
                               }
                             },
@@ -96,8 +105,8 @@ class AddButton extends StatelessWidget {
         height: 65,
         width: 360,
         child: const Text(
-          "add new task",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+          "Add New Task",
+          style: addContainereFont,
         ),
       ),
     );

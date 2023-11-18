@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:to_do_with_database/layout.dart';
 
 class CardWidget extends StatefulWidget {
   CardWidget({
@@ -50,13 +51,13 @@ class _CardWidgetState extends State<CardWidget> {
                 children: [
                   Text(
                     widget.textEntry1,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
+                    style: taskTitleFont,
                   ),
                   Text(
                     widget.textEntry2,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w400),
+                    overflow: TextOverflow.ellipsis,
+                    style: taskDescriptionFont,
                   ),
                 ],
               ),
@@ -65,6 +66,7 @@ class _CardWidgetState extends State<CardWidget> {
                 onPressed: widget.deleteAction,
                 icon: const Icon(Icons.close_rounded),
                 color: Colors.red,
+                iconSize: 30,
               ),
             ],
           ),
