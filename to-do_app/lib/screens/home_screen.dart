@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:to_do_with_database/model/to_do_model.dart';
 import 'package:to_do_with_database/services/supabase_methods.dart';
@@ -17,6 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
   SupabaseMethods supabaseMethods = SupabaseMethods();
   TextEditingController titleController = TextEditingController(),
       descriptionController = TextEditingController();
+
+  List<ToDoModel> checkList = [];
+
+  late bool isCheked;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Row(
                                       children: [
                                         Checkbox(
-                                            checkColor: Colors.amber,
-                                            activeColor: Colors.red,
-                                            value: list[index].complete,
-                                            onChanged: (value) {
-                                              list[index].complete = value!;
+                                            checkColor: Colors.white,
+                                            activeColor: Colors.blue,
+                                            // list[index].complete,
+                                            value: isCheked,
+                                            onChanged: (val) {
+                                              // add edit method  on complete value
+                                              isCheked = val!;
+                                              // list[index].complete = val;
                                               context
                                                   .findAncestorStateOfType<
                                                       _HomeScreenState>()!

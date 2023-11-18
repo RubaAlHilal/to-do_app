@@ -2,7 +2,7 @@ class ToDoModel {
   int? id;
   String? title;
   String? description;
-  bool? complete;
+  late bool? complete;
 
   ToDoModel({this.id, this.title, this.description});
 

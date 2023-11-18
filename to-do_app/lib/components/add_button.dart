@@ -10,9 +10,11 @@ class AddButton extends StatelessWidget {
   });
 
   final TextEditingController controller1, controller2;
+  
 
   @override
   Widget build(BuildContext context) {
+    
     return InkWell(
       onTap: () {
         showDialog(
@@ -78,7 +80,6 @@ class AddButton extends StatelessWidget {
               );
             });
         // Navigator.pop(context);
-      
       },
       child: Container(
         color: Colors.transparent,
