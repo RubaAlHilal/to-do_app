@@ -41,36 +41,43 @@ class AddButton extends StatelessWidget {
                           decoration:
                               const InputDecoration(label: Text("description")),
                         ),
-                        ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Color(0xffffd388)),
+                        SizedBox(
+                          width: 120,
+                          child: ElevatedButton(
+                            style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Color(0xffffd388)),
+                            ),
+                            onPressed: () {
+                              if (controller1.text.isNotEmpty &&
+                                  controller2.text.isNotEmpty) {
+                                SupabaseMethods().addToDo({
+                                  "title": controller1.text,
+                                  "description": controller2.text,
+                                  "complete": false,
+                                });
+                                const CircularProgressIndicator();
+                                Navigator.pop(context);
+                                controller1.text = "";
+                                controller2.text = "";
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                        elevation: 50,
+                                        backgroundColor: Color(0xffffd388),
+                                        content: Text(
+                                          "Please insert all fields",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18),
+                                        )));
+                              }
+                            },
+                            child: const Text(
+                              "ADD",
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
-                          onPressed: () {
-                            if (controller1.text.isNotEmpty &&
-                                controller2.text.isNotEmpty) {
-                              SupabaseMethods().addToDo({
-                                "title": controller1.text,
-                                "description": controller2.text,
-                                "complete": false,
-                              });
-                              const CircularProgressIndicator();
-                              Navigator.pop(context);
-                              controller1.text = "";
-                              controller2.text = "";
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                      elevation: 50,
-                                      backgroundColor: Color(0xffffd388),
-                                      content: Text(
-                                        "Please insert all fields",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                      )));
-                            }
-                          },
-                          child: const Text("ADD"),
                         ),
                       ],
                     ),
