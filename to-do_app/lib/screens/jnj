@@ -30,46 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffd9edfd),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Row(
-          children: [
-            const SizedBox(
-              width: 18,
-            ),
-            RefreshButton(
-              refresh: () {
-                setState(() {});
-              },
-            ),
-          ],
+        leading: RefreshButton(
+          refresh: () {
+            setState(() {});
+          },
         ),
-        // actions: [
-        //   AddButton(
-        //     controller1: titleController,
-        //     controller2: descriptionController,
-        //   ),
-        //   const SizedBox(
-        //     width: 15,
-        //   ),
-        // ],
+        actions: [
+          AddButton(
+            controller1: titleController,
+            controller2: descriptionController,
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AddButton(
-                      controller1: titleController,
-                      controller2: descriptionController),
-                ],
-              ),
-            ),
             FutureBuilder(
                 future: supabaseMethods.getToDo(),
                 builder: (context, snapshot) {
@@ -89,17 +70,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: ((context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(10),
-                            child: CardWidget(
-                              textEntry1: list[index].title.toString(),
-                              textEntry2: list[index].description.toString(),
-                              deleteAction: () {
-                                supabaseMethods.deleteToDo(
-                                    id: list[index].id!.toInt());
-                                context
-                                    .findAncestorStateOfType<
-                                        _HomeScreenState>()!
-                                    .setState(() {});
-                              },
+                            child: SizedBox(
+                              height: 75,
+                              child: CardWidget(
+                                textEntry1: list[index].title.toString(),
+                                textEntry2: list[index].description.toString(),
+                                deleteAction: () {
+                                  supabaseMethods.deleteToDo(
+                                      id: list[index].id!.toInt());
+                                  context
+                                      .findAncestorStateOfType<
+                                          _HomeScreenState>()!
+                                      .setState(() {});
+                                },
+                              ),
                             ),
                           );
                         }),

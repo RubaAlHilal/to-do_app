@@ -10,11 +10,9 @@ class AddButton extends StatelessWidget {
   });
 
   final TextEditingController controller1, controller2;
-  
 
   @override
   Widget build(BuildContext context) {
-    
     return InkWell(
       onTap: () {
         showDialog(
@@ -22,6 +20,7 @@ class AddButton extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
+                backgroundColor: const Color(0xffb1f3de),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -45,7 +44,7 @@ class AddButton extends StatelessWidget {
                         ElevatedButton(
                           style: const ButtonStyle(
                             backgroundColor:
-                                MaterialStatePropertyAll(Colors.amber),
+                                MaterialStatePropertyAll(Color(0xffffd388)),
                           ),
                           onPressed: () {
                             if (controller1.text.isNotEmpty &&
@@ -56,13 +55,14 @@ class AddButton extends StatelessWidget {
                                 "complete": false,
                               });
                               const CircularProgressIndicator();
-
                               Navigator.pop(context);
+                              controller1.text = "";
+                              controller2.text = "";
                             } else {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                       elevation: 50,
-                                      backgroundColor: Colors.blue,
+                                      backgroundColor: Color(0xffffd388),
                                       content: Text(
                                         "Please insert all fields",
                                         style: TextStyle(
@@ -82,8 +82,16 @@ class AddButton extends StatelessWidget {
         // Navigator.pop(context);
       },
       child: Container(
-        color: Colors.transparent,
-        child: const Icon(Icons.note_add_outlined),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 255, 239, 146),
+            borderRadius: BorderRadius.circular(25)),
+        height: 120,
+        width: 360,
+        child: const Text(
+          "add new task",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }
