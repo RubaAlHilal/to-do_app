@@ -28,7 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                        ],
+                      );
                     } else {
                       final List<ToDoModel> list = snapshot.data!;
                       return ListView.builder(
@@ -37,42 +42,65 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: ((context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Card(
-                                child: Row(
-                                  children: [
-                                    Checkbox(
-                                        checkColor: Colors.amber,
-                                        activeColor: Colors.red,
-                                        value: list[index].complete,
-                                        onChanged: (value) {
-                                          list[index].complete = value!;
-                                          // context
-                                          //     .findAncestorStateOfType<
-                                          //         _HomeScreenState>()!
-                                          //     .setState(() {});
-                                        }),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                              child: SizedBox(
+                                height: 75,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  color: Colors.blue.shade50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Row(
                                       children: [
-                                        Text(list[index].title.toString()),
-                                        Text(
-                                          list[index].description.toString(),
-                                         
+                                        Checkbox(
+                                            checkColor: Colors.amber,
+                                            activeColor: Colors.red,
+                                            value: list[index].complete,
+                                            onChanged: (value) {
+                                              list[index].complete = value!;
+                                              context
+                                                  .findAncestorStateOfType<
+                                                      _HomeScreenState>()!
+                                                  .setState(() {});
+                                            }),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              list[index].title.toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              list[index]
+                                                  .description
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        IconButton(
+                                          onPressed: () {
+                                            supabaseMethods.deleteToDo(
+                                                id: list[index].id!.toInt());
+                                            context
+                                                .findAncestorStateOfType<
+                                                    _HomeScreenState>()!
+                                                .setState(() {});
+                                          },
+                                          icon:
+                                              const Icon(Icons.delete_outline),
+                                          color: Colors.red,
                                         ),
                                       ],
                                     ),
-                                    const Spacer(),
-                                    IconButton(
-                                      onPressed: () {
-                                        supabaseMethods.deleteToDo(
-                                            id: list[index].id!.toInt());
-                                        setState(() {});
-                                      },
-                                      icon: const Icon(Icons.delete_outline),
-                                      color: Colors.red,
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             );
@@ -87,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "no tasks added add your first task now!");
                   }
                 }),
+            /////-------------------------------------- add  -------------------------------
             AddButton(
               controller1: titleController,
               controller2: descriptionController,
