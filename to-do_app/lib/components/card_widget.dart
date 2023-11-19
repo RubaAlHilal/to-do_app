@@ -29,9 +29,9 @@ class _CardWidgetState extends State<CardWidget> {
       height: 120,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
         ),
-        color: Color(0xffb1f3de),
+        color: const Color(0xffb1f3de),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
           child: Row(
@@ -42,6 +42,7 @@ class _CardWidgetState extends State<CardWidget> {
                   // list[index].complete,
                   value: widget.todo,
                   onChanged: (val) {
+                    // SupabaseMethods().editComplete(id: widget.id, newValue: newValue)
                     widget.todo = val!;
                     setState(() {});
                   }),
